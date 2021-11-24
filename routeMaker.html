@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapquest example</title>
+    <style>
+      #map {
+        width: 600px;
+        height: 600px;
+      }
+    </style>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+    <script>
+        let stops = [];
+        let lastUpdate = 1;
+
+        function addStop(e, map) {
+            stops[stops.length] = {
+                "latlng": e.latlng
+            };
+
+            L.marker([e.latlng.lat, e.latlng.lng], {
+                icon: L.mapquest.icons.marker({
+                    primaryColor: '#22407F',
+                    secondaryColor: '#3B5998',
+                    shadow: true,
+                    size: 'md',
+                    symbol: stops.length
+                })
+                })
+                .bindPopup("Stop " + stops.length)
+                .addTo(map)
+        }
+
+        function updateRoute(map) {
+            if (stops.length >= 2) {
+                for (let i = lastUpdate; i < stops.length; i++) {
+                    var directions = L.mapquest.directions();
+
+                    directions.route({
+                        start: stops[i-1].latlng,
+                        end: stops[i].latlng
+                    });
+
+                    lastUpdate = i;
+                }
+            }
+        }
+
+        // 1. The basic part of the example
+        var L;
+
+        window.onload = function() {
+            L.mapquest.key = 'zwIP5XgnZrqG2OGmp9gpoaUV6Evt67Zo';
+
+            // 'map' refers to a <div> element with the ID map
+            var map = L.mapquest.map('map', {
+            center: [53.480759, -2.242631],
+            layers: L.mapquest.tileLayer('hybrid'),
+            zoom: 12
+            });
+
+            map.on('click', function(e) {
+                addStop(e, map);
+            });
+
+            map.on('keypress', function(e) {
+                console.log(e);
+                if (e.originalEvent.key == 'r') {
+                    updateRoute(map);
+                }
+            })
+        }
+
+
+    </script>
+  </head>
+  <body>
+    <h1>Simple Mapquest example</h1>
+
+    <div id="map"></div>
+  </body>
+</html>
