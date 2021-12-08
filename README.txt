@@ -1,1 +1,1 @@
-yes
+Examples of MapQuest APIs

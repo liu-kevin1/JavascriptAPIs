@@ -12,6 +12,7 @@
     </style>
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
     <script>
         let stops = [];
         let lastUpdate = 1;
@@ -49,13 +50,11 @@
             }
         }
 
-        // 1. The basic part of the example
         var L;
 
         window.onload = function() {
             L.mapquest.key = 'zwIP5XgnZrqG2OGmp9gpoaUV6Evt67Zo';
 
-            // 'map' refers to a <div> element with the ID map
             var map = L.mapquest.map('map', {
             center: [53.480759, -2.242631],
             layers: L.mapquest.tileLayer('hybrid'),
@@ -67,7 +66,6 @@
             });
 
             map.on('keypress', function(e) {
-                console.log(e);
                 if (e.originalEvent.key == 'r') {
                     updateRoute(map);
                 }
@@ -78,7 +76,9 @@
     </script>
   </head>
   <body>
+    <a href="index.html">Back</a>
     <h1>Simple Mapquest example</h1>
+    <p>Click on the map to set markers, then press R to generate a route</p>
 
     <div id="map"></div>
   </body>

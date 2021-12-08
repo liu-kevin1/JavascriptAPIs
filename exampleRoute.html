@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript">
+      window.onload = function() {
+        L.mapquest.key = 'zwIP5XgnZrqG2OGmp9gpoaUV6Evt67Zo';
+
+        var map = L.mapquest.map('map', {
+          center: [40.7128, -74.0059],
+          layers: L.mapquest.tileLayer('map'),
+          zoom: 13
+        });
+
+        L.mapquest.directions().route({
+          start: '350 5th Ave, New York, NY 10118',
+          end: 'One Liberty Plaza, New York, NY 10006'
+        });
+      }
+    </script>
+  </head>
+
+  <body>
+    <a href="index.html">Back</a>
+    <div id="map" style="width: 100%; height: 530px;"></div>
+  </body>
+</html>
